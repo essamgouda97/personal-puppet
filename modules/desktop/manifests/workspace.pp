@@ -31,4 +31,16 @@ class desktop::workspace {
     provider => 'git',
     source   => 'git@github.com:zsh-users/zsh-autosuggestions',
   }
+  
+  file { '/home/gouda/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting':
+    ensure => 'directory',
+    owner  => 'gouda',
+    group  => 'gouda',
+  } ->
+  vcsrepo { '/home/gouda/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting':
+    ensure   => 'present',
+    user     => 'gouda',
+    provider => 'git',
+    source   => 'git@github.com:zsh-users/zsh-syntax-highlighting',
+  }
 }
