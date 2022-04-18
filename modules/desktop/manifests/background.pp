@@ -4,10 +4,10 @@ class desktop::background {
   package { 'ubuntu-wallpapers-precise': ensure => 'present' } ->
   gsetting { 'org.gnome.desktop.background picture-uri':
     ensure => $bg,
-    user   => 'asottile',
+    user   => 'gouda',
   } ->
   gsetting { 'org.gnome.desktop.screensaver picture-uri':
     ensure => $bg,
-    user   => 'asottile',
+    user   => 'gouda',
   }
 }

@@ -1,6 +1,6 @@
 class desktop::dotfiles {
   $dotfiles = [
-    '.bashrc', '.bash_aliases', '.gitconfig', '.hgrc', '.nanorc', '.pdbrc',
+    '.zshrc', '.zsh_aliases', '.gitconfig', '.nanorc', '.pdbrc',
     '.pypirc', '.pythonrc.py', '.tmux.conf',
   ]
   $binfiles = [
@@ -9,44 +9,44 @@ class desktop::dotfiles {
     'python/inotify-exec', 'python/prune-remote-branches',
   ]
 
-  vcsrepo { '/home/asottile/workspace/scratch':
+  vcsrepo { '/home/gouda/workspace/scratch':
     ensure   => 'present',
-    user     => 'asottile',
+    user     => 'gouda',
     provider => 'git',
-    source   => 'git@github.com:asottile/scratch',
+    source   => 'git@github.com:essamgouda97/scratch',
   }
 
   $dotfiles.each |$f| {
-    file { "/home/asottile/${f}":
+    file { "/home/gouda/${f}":
       ensure  => 'link',
-      target  => "/home/asottile/workspace/scratch/${f}",
-      owner   => 'asottile',
-      group   => 'asottile',
-      require => Vcsrepo['/home/asottile/workspace/scratch'],
+      target  => "/home/gouda/workspace/scratch/${f}",
+      owner   => 'gouda',
+      group   => 'gouda',
+      require => Vcsrepo['/home/gouda/workspace/scratch'],
     }
   }
 
   $binfiles.each |$f| {
-    file { "/home/asottile/bin/${basename($f)}":
+    file { "/home/gouda/bin/${basename($f)}":
       ensure  => 'link',
-      target  => "/home/asottile/workspace/scratch/${f}",
-      owner   => 'asottile',
-      group   => 'asottile',
+      target  => "/home/gouda/workspace/scratch/${f}",
+      owner   => 'gouda',
+      group   => 'gouda',
       require => [
-        Vcsrepo['/home/asottile/workspace/scratch'],
-        File['/home/asottile/bin'],
+        Vcsrepo['/home/gouda/workspace/scratch'],
+        File['/home/gouda/bin'],
       ],
     }
   }
 
   # many scripts use this, though we can't set contents quite yet
-  file { '/home/asottile/.github-auth.json':
+  file { '/home/gouda/.github-auth.json':
     ensure => 'present',
-    owner  => 'asottile',
-    group  => 'asottile',
+    owner  => 'gouda',
+    group  => 'gouda',
     mode   => '0600',
   }
 
   # TODO: remove eventually
-  file { '/home/asottile/bin/prune-remote-branches.py': ensure => 'absent' }
+  file { '/home/gouda/bin/prune-remote-branches.py': ensure => 'absent' }
 }

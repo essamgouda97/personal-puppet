@@ -35,20 +35,21 @@ def main() -> int:
         subprocess.check_call('ssh-add')
 
     os.environ['GEM_HOME'] = GEM_HOME
-    os.environ['PATH'] = GEM_BIN + os.pathsep + os.environ['PATH']
+    os.environ['PATH'] = GEM_BIN + os.pathsep + os.environ['PATH'] #add bin to path
 
-    for gem, version in GEMS:
+    for gem, version in GEMS: #installs puppet into home directory
         if not os.path.exists(os.path.join(GEM_HOME, f'gems/{gem}-{version}')):
             _msg(f'Ensuring {gem} is installed...')
             cmd: tuple[str, ...]
             cmd = ('gem', 'install', gem, '-v', version, '--no-document')
             subprocess.check_call(cmd)
 
-    _msg('Installing puppet modules...')
+    _msg('Installing puppet modules...') #installs puppet modules
     subprocess.check_call(('r10k', 'puppetfile', 'install'), cwd=HERE)
     subprocess.check_call(('r10k', 'puppetfile', 'purge'), cwd=HERE)
 
     _msg('Execing puppet')
+    #sets up env variables
     ret = subprocess.call((
         'sudo', 'env',
         'RUBYOPT=-W0',
@@ -57,9 +58,10 @@ def main() -> int:
         'SSH_AUTH_SOCK={}'.format(os.environ['SSH_AUTH_SOCK']),
         'puppet', 'apply', '-v', '--show_diff', '--detailed-exitcodes',
         '--modulepath', MODULE_PATH,
-        os.path.join(HERE, 'manifests/site.pp'),
+        os.path.join(HERE, 'manifests/site.pp'), #invokes puppet against site.pp
         *sys.argv[1:],
     ))
+
     if ret in {0, 2}:  # {no changes, changes}
         return 0
     else:

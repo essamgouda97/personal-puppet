@@ -1,3 +1,3 @@
 class packages::editors {
-  package { ['nano', 'vim-nox']: ensure => 'latest' }
+  package { ['nano', 'vim-nox', 'vim']: ensure => 'latest' }
 }

@@ -1,19 +1,19 @@
 class desktop::homedir {
   file { [
-    '/home/asottile/Documents',
-    '/home/asottile/Pictures',
-    '/home/asottile/Public',
-    '/home/asottile/Templates',
-    '/home/asottile/Videos',
+    '/home/gouda/Documents',
+    '/home/gouda/Pictures',
+    '/home/gouda/Public',
+    '/home/gouda/Templates',
+    '/home/gouda/Videos',
   ]:
     ensure  => 'absent',
     recurse => true,
     force   => true,
   }
 
-  file { ['/home/asottile/bin', '/home/asottile/opt']:
+  file { ['/home/gouda/bin', '/home/gouda/opt']:
     ensure => 'directory',
-    owner  => 'asottile',
-    group  => 'asottile',
+    owner  => 'gouda',
+    group  => 'gouda',
   }
 }

@@ -10,44 +10,44 @@ class desktop::pypy {
     checksum      => $pypy3_sha256,
     checksum_type => 'sha256',
     extract       => true,
-    extract_path  => '/home/asottile/opt',
-    creates       => "/home/asottile/opt/${pypy3}/bin/pypy3",
-    user          => 'asottile',
-    group         => 'asottile',
-    require       => [Package['curl'], File['/home/asottile/opt']],
+    extract_path  => '/home/gouda/opt',
+    creates       => "/home/gouda/opt/${pypy3}/bin/pypy3",
+    user          => 'gouda',
+    group         => 'gouda',
+    require       => [Package['curl'], File['/home/gouda/opt']],
   }
-  file { '/home/asottile/bin/pypy3':
+  file { '/home/gouda/bin/pypy3':
     ensure  => 'link',
-    target  => "/home/asottile/opt/${pypy3}/bin/pypy3",
-    owner   => 'asottile',
-    group   => 'asottile',
+    target  => "/home/gouda/opt/${pypy3}/bin/pypy3",
+    owner   => 'gouda',
+    group   => 'gouda',
     require => [
-      File['/home/asottile/bin'],
+      File['/home/gouda/bin'],
       Archive["/tmp/${pypy3}.tar.bz2"],
     ],
   }
 
   # purge old versions, remove when updated
   file { [
-    '/home/asottile/opt/pypy2.7-v7.3.1-linux64',
-    '/home/asottile/opt/pypy3.6-v7.3.1-linux64',
-    '/home/asottile/opt/pypy2.7-v7.3.2-linux64',
-    '/home/asottile/opt/pypy3.7-v7.3.2-linux64',
-    '/home/asottile/opt/pypy2.7-v7.3.3-linux64',
-    '/home/asottile/opt/pypy3.7-v7.3.3-linux64',
-    '/home/asottile/opt/pypy2.7-v7.3.5-linux64',
-    '/home/asottile/opt/pypy3.7-v7.3.5-linux64',
-    '/home/asottile/opt/pypy2.7-v7.3.6-linux64',
-    '/home/asottile/opt/pypy3.8-v7.3.6-linux64',
-    '/home/asottile/opt/pypy3.8-v7.3.7-linux64',
-    '/home/asottile/opt/pypy3.9-v7.3.8-linux64',
+    '/home/gouda/opt/pypy2.7-v7.3.1-linux64',
+    '/home/gouda/opt/pypy3.6-v7.3.1-linux64',
+    '/home/gouda/opt/pypy2.7-v7.3.2-linux64',
+    '/home/gouda/opt/pypy3.7-v7.3.2-linux64',
+    '/home/gouda/opt/pypy2.7-v7.3.3-linux64',
+    '/home/gouda/opt/pypy3.7-v7.3.3-linux64',
+    '/home/gouda/opt/pypy2.7-v7.3.5-linux64',
+    '/home/gouda/opt/pypy3.7-v7.3.5-linux64',
+    '/home/gouda/opt/pypy2.7-v7.3.6-linux64',
+    '/home/gouda/opt/pypy3.8-v7.3.6-linux64',
+    '/home/gouda/opt/pypy3.8-v7.3.7-linux64',
+    '/home/gouda/opt/pypy3.9-v7.3.8-linux64',
   ]:
     ensure  => 'absent',
     recurse => true,
     force   => true,
   }
   ['pypy', 'pypy2'].each |$bin| {
-    file { "/home/asottile/bin/${bin}":
+    file { "/home/gouda/bin/${bin}":
       ensure  => 'absent',
     }
   }

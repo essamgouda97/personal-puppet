@@ -1,13 +1,13 @@
 class desktop::podman {
-  file { '/home/asottile/bin/docker':
+  file { '/home/gouda/bin/docker':
     ensure  => 'link',
     target  => '/usr/bin/podman',
-    owner   => 'asottile',
-    group   => 'asottile',
-    require => [Package['podman'], File['/home/asottile/bin']],
+    owner   => 'gouda',
+    group   => 'gouda',
+    require => [Package['podman'], File['/home/gouda/bin']],
   }
 
-  file { '/home/asottile/.config/containers':
+  file { '/home/gouda/.config/containers':
     ensure  => 'absent',
     recurse => true,
     force   => true,
