@@ -5,6 +5,8 @@ class desktop::homedir {
     '/home/gouda/Public',
     '/home/gouda/Templates',
     '/home/gouda/Videos',
+    '/home/gouda/Desktop',
+    '/home/gouda/Downloads',
   ]:
     ensure  => 'absent',
     recurse => true,
