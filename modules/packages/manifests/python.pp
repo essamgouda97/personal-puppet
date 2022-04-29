@@ -1,5 +1,5 @@
 class packages::python {
-  $ubuntu_pkgs = ['python2-dev', 'python3-dev', 'python3-distutils']
+  $ubuntu_pkgs = ['python2-dev', 'python3-dev', 'python3-distutils', 'python3.8-venv']
   package { $ubuntu_pkgs: ensure => 'latest' } ->
   file { '/etc/python3.8/sitecustomize.py':
     ensure  => present,

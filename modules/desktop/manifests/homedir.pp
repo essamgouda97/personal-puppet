@@ -7,6 +7,7 @@ class desktop::homedir {
     '/home/gouda/Videos',
     '/home/gouda/Desktop',
     '/home/gouda/Downloads',
+    '/home/gouda/Music',
   ]:
     ensure  => 'absent',
     recurse => true,
